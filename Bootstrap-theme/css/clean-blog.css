@@ -1,4 +1,4 @@
-/*
+/*!
  * Start Bootstrap - Clean Blog v5.0.8 (https://startbootstrap.com/template-overviews/clean-blog)
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/master/LICENSE)
@@ -120,7 +120,7 @@ img::-moz-selection {
     background: transparent;
   }
   #mainNav .navbar-brand {
-    padding: 30px 20px;
+    padding: 10px 20px;
     color: #fff;
   }
   #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {

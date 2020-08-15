@@ -25,10 +25,14 @@
 
 <body>
 
-   <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Jean Forteroche</a>
+      <a class="navbar-brand" href="index.php">Le blog de Jean Forteroche</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav> 
 
@@ -39,8 +43,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>Billet simple pour l'Alaska</h1>
-            <span class="subheading">Le blog de Jean Forteroche</span>
+            <h2>Blog Admin</h2>
           </div>
         </div>
       </div>
@@ -50,52 +53,35 @@
   <!-- Main Content -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-      <?php
-        // Connexion à la base de données
-        try
-        {
-            $bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', 'root');
-        }
-        catch(Exception $e)
-        {
-                die('Erreur : '.$e->getMessage());
-        }
-
-        // On récupère les 5 derniers billets
-        $req = $bdd->query('SELECT id, titre, contenu, auteur, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT 0, 5');
-
-        while ($donnees = $req->fetch())
-        {
-        ?>
-        <div class="post-preview">
-          <a href="post.php">
-            <h2 class="post-title">
-            <?php echo htmlspecialchars($donnees['titre']); ?>
-            </h2>
-            <h5 class="post-subtitle">
-            <?php
-            // On affiche le contenu du billet
-            echo nl2br(htmlspecialchars($donnees['contenu']));
-            ?>
-            </h5>
-          </a>
-          <p class="post-meta">Publié  par
-            <?php echo $donnees['auteur']; ?>
-            <em>le <?php echo $donnees['date_creation_fr']; ?></em></p>
-        </div>
-        <hr>
-        <?php
-        } // Fin de la boucle des billets
-        $req->closeCursor();
-        ?>
-        <!-- Pager -->
-        <!--<div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>-->
+      <div class="col-lg-8 col-md-10 mx-auto text-center">
+        <form method="post">
+          <p>
+            <input type="textfield" name="pseudo" />
+          </p>
+        <form action="secret.php" method="post">
+            <p>
+            <input type="password" name="mot_de_passe" />
+            </p>
+            <input type="submit" value="Valider" />
+        </form>
       </div>
     </div>
   </div>
+  <?php
+    if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] ===  "zobi" AND $_POST['pseudo'] ===  "forteroche") // Si le mot de passe est bon
+    {
+      ?> 
+        <?php
+        header('Location: http://localhost:8888/admin.php');
+        exit();
+        ?>
+      <?php
+      }
+      else // Sinon, on affiche un message d'erreur
+        {
+          echo '<script>alert("Mot de passe incorrecte");</script>';
+        }
+        ?>
 
   <hr>
 
@@ -130,7 +116,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019 <a href="login.php">Admin</a></p>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2019 <a href="#">Admin</a></p>
         </div>
       </div>
     </div>

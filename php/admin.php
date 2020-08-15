@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <script src="https://cdn.tiny.cloud/1/sj0zwo9w3vw7iujp5ft7ymwz2upryalqbiskff2cqtxjt1u9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
   <title>Jean Forteroche</title>
 
@@ -25,10 +26,12 @@
 
 <body>
 
-   <!-- Navigation -->
+  <!-- Navigation -->
    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Jean Forteroche</a>
+      <a class="navbar-brand" href="admin.php">Jean Forteroche</a>
+      <button type="button" type="submit" value="Deconnexion" class="btn btn-primary btn-sm">Déconnexion</button>
+
     </div>
   </nav> 
 
@@ -51,6 +54,39 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <script>
+              tinymce.init({
+                selector: 'textarea',
+                plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+                toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+                toolbar_mode: 'floating',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+              });
+          </script>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
       <?php
         // Connexion à la base de données
         try
@@ -80,7 +116,7 @@
             ?>
             </h5>
           </a>
-          <p class="post-meta">Publié  par
+          <p class="post-meta">Posted by
             <?php echo $donnees['auteur']; ?>
             <em>le <?php echo $donnees['date_creation_fr']; ?></em></p>
         </div>
