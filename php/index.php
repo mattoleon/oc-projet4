@@ -1,148 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+// ROUTEUR
+require('controller/frontend.php');
+require('controller/backend.php');
 
-  <title>Jean Forteroche</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+try {
+    if (isset($_GET['action'])) {
 
-  <!-- Custom fonts for this template -->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        // FONCTIONS FRONTEND
 
-  <!-- Custom styles for this template -->
-  <link href="../css/clean-blog.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-   <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="index.php">Jean Forteroche</a>
-    </div>
-  </nav> 
-
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Billet simple pour l'Alaska</h1>
-            <span class="subheading">Le blog de Jean Forteroche</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-      <?php
-        // Connexion à la base de données
-        try
-        {
-            $bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', 'root');
+        // Fonction qui appelle l'affichage des posts
+        if ($_GET['action'] == 'listPosts') {
+            listPosts();
         }
-        catch(Exception $e)
-        {
-                die('Erreur : '.$e->getMessage());
+        elseif ($_GET['action'] == 'post') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                post();
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        }
+        
+        // Fonction qui appelle l'ajout de commentaires
+        elseif ($_GET['action'] == 'addComment') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                }
+                else {
+                    throw new Exception('Impossible d\'afficher le commentaire');
+                }
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
         }
 
-        // On récupère les 5 derniers billets
-        $req = $bdd->query('SELECT id, titre, contenu, auteur, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT 0, 5');
-
-        while ($donnees = $req->fetch())
-        {
-        ?>
-        <div class="post-preview">
-          <a href="post.php">
-            <h2 class="post-title">
-            <?php echo htmlspecialchars($donnees['titre']); ?>
-            </h2>
-            <h5 class="post-subtitle">
-            <?php
-            // On affiche le contenu du billet
-            echo nl2br(htmlspecialchars($donnees['contenu']));
-            ?>
-            </h5>
-          </a>
-          <p class="post-meta">Publié  par
-            <?php echo $donnees['auteur']; ?>
-            <em>le <?php echo $donnees['date_creation_fr']; ?></em></p>
-        </div>
-        <hr>
-        <?php
-        } // Fin de la boucle des billets
-        $req->closeCursor();
-        ?>
-        <!-- Pager -->
-        <!--<div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>-->
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019 <a href="login.php">Admin</a></p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="../js/clean-blog.min.js"></script>
-
-</body>
-
-</html>
+        // FONCTIONS BACKEND
+ 
+     
+        // Fonction qui soumet la création d'un nouvel article
+        elseif ($_GET['action'] == 'create') {
+           
+                if (!empty($_POST['title']) && !empty($_POST['content'])) {
+                    create($_POST['title'], $_POST['content']);
+                }
+                else {
+                    throw new Exception('Impossible d\'afficher le billet');
+                }
+            
+        }    // Fonction qui appelle l'affichage des articles en mode Admin
+        elseif ($_GET['action'] == 'listPostsAdmin') {
+			
+            listPostsAdmin();
+           
+		} 
+    }
+    else {
+        listPosts();
+    }
+}
+catch(Exception $e) { // S'il y a eu une erreur, alors...
+    echo 'Erreur : ' . $e->getMessage();
+}
