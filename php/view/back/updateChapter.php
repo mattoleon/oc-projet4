@@ -1,7 +1,4 @@
-<?php if(empty($_SESSION['login'])){
-  header('location:../front/login.php');
-  exit;
-} ?>
+
 <?php $title = 'Bille simple pour l\'Alaska'; ?>
 
 <?php ob_start(); ?>
@@ -12,12 +9,12 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">  
-          <form action="../../index.php?action=create" method="post" >
+          <form action="../../index.php?action=submitUpdate&amp;id=<?= $post['id']; ?>" method="post" >
             <div class="post-preview">
                   <label for="title">Titre de l'article</label><br />  
-                  <input type="text" name="title" id="title"/><br />
+                  <input type="text" name="title" id="title" value="<?= $post['title'];?>" /><br />
                   <label for="content">Message</label><br />
-                  <textarea name="content" id="textarea"></textarea>
+                  <textarea name="content" id="textarea"><?= nl2br($post['content']);?></textarea>
             </div>
               <input type="submit" value="Envoyer" class="btn btn-primary btn-sm" />
             </form>
@@ -59,7 +56,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2019 <a href="login.php">Admin</a></p>
         </div>
       </div>
     </div>

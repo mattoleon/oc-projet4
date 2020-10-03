@@ -1,37 +1,27 @@
+<?php if(empty($_SESSION['login'])){
+  header('location:../front/login.php');
+  exit;
+} ?>
 <?php $title = 'Bille simple pour l\'Alaska'; ?>
 
 <?php ob_start(); ?>
 
-   <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="../../index.php">Jean Forteroche</a>
-    </div>
-  </nav> 
-
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('../../public/img/home-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Billet simple pour l'Alaska</h1>
-            <?php
-            // Ici on est bien loggué, on affiche un message
-            echo 'Bienvenue ', $_SESSION['login'];
-            ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  
+ 
   <!-- Main Content -->
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-      <a href="view/back/newChapter.php"><input type="submit" value="Nouvel Article" class="btn btn-primary btn-sm" /></a>
+      <?php
+        if (isset($_GET['logged']) &&  $_GET['logged'] == 'success') {
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Bienvenue !</strong> Vous êtes connecté en mode admin.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+        }
+      ?>
+      <a href="index.php?action=createPost"><input type="submit" value="Nouvel Article" class="btn btn-primary btn-sm" /></a>
       <?php         
         while ($data = $posts->fetch())
          {
@@ -45,9 +35,12 @@
               <?= ($data['content']) ?>
             </h5>
           </a>
+          <a href="index.php?action=delete&amp;id=<?= $data['id'] ?>"><i class="fas fa-trash"></i></a>
+          <a href="index.php?action=updateChapter&amp;id=<?= $data['id'] ?>"><i class="fas fa-edit"></i></a>
           <p class="post-meta">Publié  par Jean Forteroche
             <em>le <?= htmlspecialchars($data['creation_date'])?></em></p>
         </div>
+        
         <?php
            } // Fin de la boucle des billets
             $posts->closeCursor();
@@ -58,42 +51,6 @@
 
   <hr>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Billet simple pour l'Alaska. <a href="view/back/login.php">Admin</a></p>
-        </div>
-      </div>
-    </div>
-  </footer>
 
 <?php $bodyContent = ob_get_clean(); ?>
 

@@ -27,7 +27,6 @@ function post() // Affichage d'un post
 // CommentManager
 function addComment($postId, $author, $comment) // Affichage commentaires
 {
-
     $commentManager = new Projet4\Blog\Model\CommentManager();
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
 
