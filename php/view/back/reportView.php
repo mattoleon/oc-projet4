@@ -37,15 +37,17 @@
           </tr>
         </thead>
         <tbody>
+
         <?php
           while ($report = $reports->fetch())
           {
         ?>
+
           <tr>
             <th scope="row"><?= htmlspecialchars($report['author']) ?></th>
             <td scope="row"><?= nl2br(htmlspecialchars($report['comment'])) ?></td>
-            <td><a href="../../index.php?action=approve&amp;id=<?= $report['id'] ?>"><i class="fas fa-edit"></i></a>
-            <a href="../../index.php?action=deleteComments&amp;id=<?= $report['id'] ?>"><i class="fas fa-trash"></i></a></td>
+            <td><a href="../../index.php?action=approve&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-edit"></i></a>
+            <a href="../../index.php?action=deleteComments&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-trash"></i></a></td>
           </tr>
 
         <?php

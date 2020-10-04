@@ -37,6 +37,9 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+        elseif ($_GET['action'] == 'report') {
+            report($_GET['id'], $_GET['comment_id']);
+        }  
 
         // --------- FONCTIONS BACKEND ---------
 
@@ -92,9 +95,6 @@ try {
             } else {
             throw new Exception('Oups, un problème est survenu !');
 			}
-        }  
-        elseif ($_GET['action'] == 'report') {
-            report($_GET['id']);
         }  
         elseif ($_GET['action'] == 'approve') {
             approve($_GET['id']);

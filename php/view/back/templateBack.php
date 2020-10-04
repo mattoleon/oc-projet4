@@ -52,10 +52,12 @@
           <li class="nav-item">
             <a class="nav-link" href="../../index.php?action=displayReport">Modération</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.php?action=logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+          </li>
         </ul>
       </div>
     </div>
-    <a href="../../index.php?action=logout"><button class="btn btn-primary btn-sm">Deconnexion</button></a>
   </nav> 
    <!-- Page Header -->
    <header class="masthead" style="background-image: url('../../public/img/admin-bg.jpg')">
@@ -88,7 +90,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <ul class="list-inline text-center">
             <li class="list-inline-item">
-              <a href="#">
+              <a href="">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
@@ -96,7 +98,7 @@
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
@@ -104,7 +106,7 @@
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-github fa-stack-1x fa-inverse"></i>

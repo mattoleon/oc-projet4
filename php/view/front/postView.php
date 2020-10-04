@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="news">
-            <h4>Commenter cet article</h4>
+            <h5>Commenter cet article</h5>
             <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
               <div class="form-group">
                 <label for="author">Pseudo</label>
@@ -44,17 +44,27 @@
     <hr>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div id="comAnchor" class="col-lg-8 col-md-10 mx-auto">
         <?php
-        if (isset($_GET['report']) &&  $_GET['report'] == 'success') {
-          echo '<div class="alert alert-info alert-dismissible fade show" role="alert">
-                <strong>Merci !</strong> Le commentaire a été signalé.
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>';
-        }
-      ?>
+            if (isset($_GET['posted']) &&  $_GET['posted'] == 'success') {
+              echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Merci !</strong> Votre commentaire a été ajouté.
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>';
+            }
+        ?>
+         <?php
+          if (isset($_GET['report']) &&  $_GET['report'] == 'success') {
+            echo '<div class="alert alert-info alert-dismissible fade show" role="alert">
+                  <strong>Merci !</strong> Le commentaire a été signalé.
+                    <button type="button" class="close" data-dismiss="alert" data-auto-dismiss="2000" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>';
+          }
+        ?>
           <div class="news">
               <?php
                 while ($comment = $comments->fetch())
@@ -62,7 +72,7 @@
               ?>
                 <em><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= htmlspecialchars($comment['comment_date']) ?></em><br>
                 <small><em><?= nl2br(htmlspecialchars($comment['comment'])) ?></em></small><br>
-                <a href="index.php?action=report&amp;id=<?= $comment['id'] ?>"><small><p><span class="badge badge-secondary ">Signaler</span></p></small></a>
+                <a href="index.php?action=report&amp;id=<?= $post['id'] ?>&amp;comment_id=<?= $comment['comment_id'] ?>"><small><p><span class="badge badge-secondary ">Signaler</span></p></small></a>
                 <?php
                 }
                 ?>

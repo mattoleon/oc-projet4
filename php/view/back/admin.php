@@ -21,6 +21,16 @@
                 </div>';
         }
       ?>
+       <?php
+        if (isset($_GET['updated']) &&  $_GET['updated'] == 'success') {
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Article mis à jour.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+        }
+      ?>
       <a href="index.php?action=createPost"><input type="submit" value="Nouvel Article" class="btn btn-primary btn-sm" /></a>
       <?php         
         while ($data = $posts->fetch())

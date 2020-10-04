@@ -14,27 +14,21 @@ function displayComments()
   return $req;
 }
 
-function deleteComment($id)
+function deleteComment($comment_id)
 {
   $db = $this->dbConnect();
-  $delete = $db->prepare('DELETE FROM comments WHERE id = ?');
-  $delete->execute(array($id));
+  $delete = $db->prepare('DELETE FROM comments WHERE comment_id = ?');
+  $delete->execute(array($comment_id));
   return $delete;
 }
 
-function reportComment($id)
-{
-  $db = $this->dbConnect();
-  $report = $db->prepare('UPDATE comments SET reported = 1 WHERE id = ?');
-  $report->execute(array($id));
-  return $report;
-}
 
-function approveComment($id)
+
+function approveComment($comment_id)
 {
   $db = $this->dbConnect();
-  $report = $db->prepare('UPDATE comments SET reported = 0 WHERE id = ?');
-  $report->execute(array($id));
+  $report = $db->prepare('UPDATE comments SET reported = 0 WHERE comment_id = ?');
+  $report->execute(array($comment_id));
   return $report;
 }
 

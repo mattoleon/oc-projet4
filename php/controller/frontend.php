@@ -2,6 +2,7 @@
 // CONTROLEUR
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/ReportManager.php');
 
 
 // PostManager
@@ -34,6 +35,17 @@ function addComment($postId, $author, $comment) // Affichage commentaires
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: index.php?action=post&id=' . $postId . '&posted=success#comAnchor');
     }
+}
+
+function report($postId, $comment_id)
+{
+    $commentManager = new Projet4\Blog\Model\CommentManager();
+    $report = $commentManager->reportComment($postId, $comment_id); 
+    
+    header('Location: index.php?action=post&id=' . $postId . '&comment=' . $comment_id . '&report=success#comAnchor');
+
+    
+
 }

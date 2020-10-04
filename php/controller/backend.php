@@ -41,7 +41,7 @@ function submitUpdate($title, $content, $postId)
 {
     $postManager = new Projet4\Blog\Model\PostManager();
     $update = $postManager->updateChapter($title, $content, $postId);
-    header('Location:../../index.php?action=listPostsAdmin');
+    header('Location:../../index.php?action=listPostsAdmin&updated=success');
 }
 
 function displayLoginView() 
@@ -81,10 +81,12 @@ function delete($id)
     header('Location:../../index.php?action=listPostsAdmin');
 }
 
-function deleteComments($id)
+function deleteComments($comment_id)
 {
-    $reportManager = new Projet4\Blog\Model\reportManager();
-    $affectedLines = $reportManager->deleteComment($id);
+    $reportManager = new Projet4\Blog\Model\ReportManager();
+    $affectedLines = $reportManager->deleteComment($comment_id);
+
+    
     header('Location:../../index.php?action=displayReport&rejected=success');
     
 }
@@ -97,17 +99,11 @@ function displayReport()
 
 }
 
-function report($id)
-{
-    $reportManager = new Projet4\Blog\Model\reportManager();
-    $reports = $reportManager->reportComment($id);
-    header('Location:index.php?action=post&id=' . $postId);
-}
 
-function approve($id)
+function approve($comment_id)
 {
-    $reportManager = new Projet4\Blog\Model\reportManager();
-    $reports = $reportManager->approveComment($id);
+    $reportManager = new Projet4\Blog\Model\ReportManager();
+    $reports = $reportManager->approveComment($comment_id);
     
     header('Location:../../index.php?action=displayReport&approved=success');
 }
