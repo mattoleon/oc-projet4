@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">  
-          <form action="../../index.php?action=submitUpdate&amp;id=<?= $post['id']; ?>" method="post" >
+          <form action="index.php?action=submitUpdate&amp;id=<?= $post['id']; ?>" method="post" >
             <div class="post-preview">
                   <label for="title">Titre de l'article</label><br />  
                   <input type="text" name="title" id="title" value="<?= $post['title'];?>" /><br />

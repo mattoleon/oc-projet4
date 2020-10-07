@@ -1,5 +1,5 @@
 <?php if(empty($_SESSION['login'])){
-  header('location:../front/login.php');
+  header('location:front/login.php');
   exit;
 } ?>
 <?php $title = 'Bille simple pour l\'Alaska'; ?>

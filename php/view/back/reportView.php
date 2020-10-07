@@ -1,5 +1,5 @@
 <?php if(empty($_SESSION['login'])){
-  header('location:../front/login.php');
+  header('location:front/login.php');
   exit;
 } ?>
 <?php $title = 'Bille simple pour l\'Alaska'; ?>
@@ -46,8 +46,8 @@
           <tr>
             <th scope="row"><?= htmlspecialchars($report['author']) ?></th>
             <td scope="row"><?= nl2br(htmlspecialchars($report['comment'])) ?></td>
-            <td><a href="../../index.php?action=approve&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-edit"></i></a>
-            <a href="../../index.php?action=deleteComments&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-trash"></i></a></td>
+            <td><a href="index.php?action=approve&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-edit"></i></a>
+            <a href="index.php?action=deleteComments&amp;id=<?= $report['comment_id'] ?>"><i class="fas fa-trash"></i></a></td>
           </tr>
 
         <?php

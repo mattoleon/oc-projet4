@@ -1,5 +1,5 @@
 <?php if(empty($_SESSION['login'])){
-  header('location:../front/login.php');
+  header('location:front/login.php');
   exit;
 } ?>
 <?php $title = 'Bille simple pour l\'Alaska'; ?>
@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">  
-          <form action="../../index.php?action=create" method="post" >
+          <form action="index.php?action=create" method="post" >
             <div class="post-preview">
                   <label for="title">Titre de l'article</label><br />  
                   <input type="text" name="title" id="title"/><br />
@@ -27,44 +27,6 @@
   </div>
 
   <hr>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto"> 
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
 
   <?php $bodyContent = ob_get_clean(); ?>
 

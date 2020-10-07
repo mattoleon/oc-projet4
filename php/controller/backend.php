@@ -26,7 +26,7 @@ function create($title, $content) // Création d'un post
         throw new Exception('Impossible d\'ajouter le billet !');
     }
     else {
-        header('Location:../../index.php?action=listPostsAdmin');
+        header('Location:index.php?action=listPostsAdmin');
     }
 }
 
@@ -41,7 +41,7 @@ function submitUpdate($title, $content, $postId)
 {
     $postManager = new Projet4\Blog\Model\PostManager();
     $update = $postManager->updateChapter($title, $content, $postId);
-    header('Location:../../index.php?action=listPostsAdmin&updated=success');
+    header('Location:index.php?action=listPostsAdmin&updated=success');
 }
 
 function displayLoginView() 
@@ -59,10 +59,10 @@ function login()
         session_start();
         $_SESSION['login'] = $_POST['login'];
         
-        header('Location:../../index.php?action=listPostsAdmin&logged=success');
+        header('Location:index.php?action=listPostsAdmin&logged=success');
     }
     else {
-        header('Location:../../index.php?action=displayLogin&logged=error');
+        header('Location:index.php?action=displayLogin&logged=error');
     }
 }
 
@@ -70,7 +70,7 @@ function logout() {
 	$_SESSION = array();
 	session_destroy();
 
-	header('Location:../../index.php?action=listPosts&logout=success');
+	header('Location:index.php?action=listPosts&logout=success');
 }
 
 function delete($id)
@@ -78,7 +78,7 @@ function delete($id)
     $postManager = new Projet4\Blog\Model\PostManager();
     $affectedLines = $postManager->deleteChapter($id);
     
-    header('Location:../../index.php?action=listPostsAdmin');
+    header('Location:index.php?action=listPostsAdmin');
 }
 
 function deleteComments($comment_id)
@@ -87,7 +87,7 @@ function deleteComments($comment_id)
     $affectedLines = $reportManager->deleteComment($comment_id);
 
     
-    header('Location:../../index.php?action=displayReport&rejected=success');
+    header('Location:index.php?action=displayReport&rejected=success');
     
 }
 
@@ -105,6 +105,6 @@ function approve($comment_id)
     $reportManager = new Projet4\Blog\Model\ReportManager();
     $reports = $reportManager->approveComment($comment_id);
     
-    header('Location:../../index.php?action=displayReport&approved=success');
+    header('Location:index.php?action=displayReport&approved=success');
 }
 
