@@ -6,14 +6,14 @@ require_once("model/Manager.php");
 
 class PostManager extends Manager {
 
-    function getPosts()
+    function getPosts() // Récupère les posts dans la base de donnée
     {
       $db = $this->dbConnect();
-      $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM chapter ORDER BY creation_date DESC LIMIT 0, 5');
+      $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM chapter ORDER BY creation_date DESC LIMIT 0, 5');
       return $req;
     }
 
-    function getPost($postId)
+    function getPost($postId) // Récupère un post et son id
     {
       $db = $this->dbConnect();
       $req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date FROM chapter WHERE id = ?');
@@ -30,7 +30,7 @@ class PostManager extends Manager {
       return $affectedLines;
     }
 
-    function updateChapter($title, $content, $postId)
+    function updateChapter($title, $content, $postId) // Update un chapitre grâce à son id dans la base de donnée
     {
       $db = $this->dbConnect();
       $req = $db->prepare('UPDATE chapter SET title = ?, content = ? WHERE id = ?');
@@ -39,7 +39,7 @@ class PostManager extends Manager {
       return $update;
     }
 
-    function deleteChapter($id)
+    function deleteChapter($id) // Supprimme un chapitre à l'aide de l'id dans la base de donnée
     {
       $db = $this->dbConnect();
       $delete = $db->prepare('DELETE FROM chapter WHERE id = ?');

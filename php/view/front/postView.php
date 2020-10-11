@@ -12,9 +12,7 @@
                 <?= htmlspecialchars($post['title']) ?>
               </h3>
               <em> Par Jean Forteroche le <?= htmlspecialchars($post['creation_date']) ?></em> 
-              <p>
               <?= ($post['content']) ?>
-              </p>
             </div>
         </div>
       </div>
@@ -70,7 +68,7 @@
                 while ($comment = $comments->fetch())
                 {
               ?>
-                <em><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= htmlspecialchars($comment['comment_date']) ?></em><br>
+                <em><strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= htmlspecialchars($comment['comment_date_fr']) ?></em><br>
                 <small><em><?= nl2br(htmlspecialchars($comment['comment'])) ?></em></small><br>
                 <a href="index.php?action=report&amp;id=<?= $post['id'] ?>&amp;comment_id=<?= $comment['comment_id'] ?>"><small><p><span class="badge badge-secondary ">Signaler</span></p></small></a>
                 <?php
@@ -95,4 +93,4 @@
       require('template.php'); 
     }
 ?>
-</html>
+

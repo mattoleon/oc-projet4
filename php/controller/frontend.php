@@ -25,8 +25,8 @@ function post() // Affichage d'un post
     require('view/front/postView.php');
 }
 
-// CommentManager
-function addComment($postId, $author, $comment) // Affichage commentaires
+
+function addComment($postId, $author, $comment) // Ajout de commentaires
 {
     $commentManager = new Projet4\Blog\Model\CommentManager();
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
@@ -39,7 +39,7 @@ function addComment($postId, $author, $comment) // Affichage commentaires
     }
 }
 
-function report($postId, $comment_id)
+function report($postId, $comment_id) // Signaler un commentaire
 {
     $commentManager = new Projet4\Blog\Model\CommentManager();
     $report = $commentManager->reportComment($postId, $comment_id); 

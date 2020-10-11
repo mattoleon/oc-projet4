@@ -12,7 +12,7 @@ function listPostsAdmin() // Affichage de la page des posts
     require('view/back/admin.php'); 
 }
 
-function displayNewChapter() 
+function displayNewChapter() // Affiche la vue newChapter.php pour créer un nouveau chapitre
 {
     require('view/back/newChapter.php');
 }
@@ -30,50 +30,50 @@ function create($title, $content) // Création d'un post
     }
 }
 
-function displayUpdateChapter() 
+function displayUpdateChapter() // Affichage la vue d'édition d'un article
 {
 	$postManager = new Projet4\Blog\Model\PostManager();
 	$post = $postManager->getPost($_GET['id']);
 	require('view/back/updateChapter.php');
 }
 
-function submitUpdate($title, $content, $postId)
+function submitUpdate($title, $content, $postId) // Soumet la modification d'un article
 {
     $postManager = new Projet4\Blog\Model\PostManager();
     $update = $postManager->updateChapter($title, $content, $postId);
     header('Location:index.php?action=listPostsAdmin&updated=success');
 }
 
-function displayLoginView() 
+function displayLoginView()  // Affiche de la vue login.php
 {
     require('view/front/login.php');
 }
 
 
-function login()
+function login() // Vérifie la requête de la méthode loginAdmin 
 {
     $loginManager = new Projet4\Blog\Model\LoginManager();
-    $isAuthenticated = $loginManager->loginAdmin($_POST['login'], $_POST['password']);
+    $isLogged = $loginManager->loginAdmin($_POST['login'], $_POST['password']);
 
-    if ($isAuthenticated === true) {
+    if ($isLogged === true) {
         session_start();
         $_SESSION['login'] = $_POST['login'];
-        
         header('Location:index.php?action=listPostsAdmin&logged=success');
-    }
-    else {
+    } else {
         header('Location:index.php?action=displayLogin&logged=error');
     }
+
 }
 
-function logout() {
+function logout() // Fait un session_destroy pour se déconnecter
+{
 	$_SESSION = array();
 	session_destroy();
 
 	header('Location:index.php?action=listPosts&logout=success');
 }
 
-function delete($id)
+function delete($id) // Supprimme un article
 {
     $postManager = new Projet4\Blog\Model\PostManager();
     $affectedLines = $postManager->deleteChapter($id);
@@ -81,7 +81,7 @@ function delete($id)
     header('Location:index.php?action=listPostsAdmin');
 }
 
-function deleteComments($comment_id)
+function deleteComments($comment_id) // Supprimme un commentaire
 {
     $reportManager = new Projet4\Blog\Model\ReportManager();
     $affectedLines = $reportManager->deleteComment($comment_id);
@@ -91,7 +91,7 @@ function deleteComments($comment_id)
     
 }
 
-function displayReport()
+function displayReport() // Affiche la vue reportView.php
 {
     $reportManager = new Projet4\Blog\Model\ReportManager();
     $reports = $reportManager->displayComments();
@@ -100,7 +100,7 @@ function displayReport()
 }
 
 
-function approve($comment_id)
+function approve($comment_id) // Approuve un commentaire signalé, inverse sa valeur booléenne
 {
     $reportManager = new Projet4\Blog\Model\ReportManager();
     $reports = $reportManager->approveComment($comment_id);

@@ -8,20 +8,33 @@ require_once("model/Manager.php");
 class LoginManager extends Manager  {
 
   
+   // Action pour se connecter à l'espace Admin
    function loginAdmin($login, $password) {
-      $login = $_POST['login'];
-      // Modifié par sécurité --> $password = '$2y$10$x5kgaGT7oe9yEh.GyWNuTZRgZGTIS987HdnUD6BxCZeldIKcpQq';
       
-      if ($_POST['login'] === '' AND password_verify($_POST['password'], $password))
+      $db = $this->dbConnect();
+      
+      if (isset($_POST['submit'])); // Si le formulaire est envoyé...
       {
-         $isAuthenticated = true;
-         
-      } else {
-         $isAuthenticated = false;
-      }
-   return $isAuthenticated;
-   } 
+         $login = htmlspecialchars($_POST['login']);
+         $password = htmlspecialchars($_POST['password']);
+         $result = $db->prepare("SELECT * FROM admin WHERE login = '$login'");
+         $result -> execute();
 
+         if($result->rowCount() > 0) // Si j'ai une entrée dans ma BDD, je fais mon password verify...
+         {
+            $data = $result->fetchAll();
+            if(password_verify($password, $data[0]['password']))
+            {
+               $isLogged = true;
+            } 
+         } else { // ...Sinon, je crée un identifiant et un mot de passe haché
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $req = $db->prepare("INSERT INTO admin (login, password) VALUES('$login','$password')");
+            $req->execute(); 
+         }
+         return $isLogged;
+      } 
+   } 
 
    
 }

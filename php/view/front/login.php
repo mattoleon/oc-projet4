@@ -1,8 +1,6 @@
 <?php $title = 'Bille simple pour l\'Alaska'; ?>
 
 <?php ob_start(); ?>
-
-
   <!-- Main Content -->
   <div class="container">
     <div class="row">
@@ -31,10 +29,7 @@
       </div>
     </div>
   </div>
-
   <hr>
-
-
 <?php $bodyContent = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

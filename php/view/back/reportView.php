@@ -6,7 +6,6 @@
 
 <?php ob_start(); ?>
 
-
   <!-- Report Content -->
 <div class="container">
   <div class="row">
@@ -59,10 +58,6 @@
     </div>  
   </div>
 </div>
-
 <hr>
-
 <?php $bodyContent = ob_get_clean(); ?>
-
 <?php require('templateBack.php'); ?>
-</html>

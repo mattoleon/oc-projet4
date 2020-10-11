@@ -30,7 +30,7 @@
             </h5>
           </a>
           <p class="post-meta">Publié  par Jean Forteroche
-            <em>le <?= htmlspecialchars($data['creation_date'])?></em></p>
+            <em>le <?= htmlspecialchars($data['creation_date_fr'])?></em></p>
         </div>
         <?php
            } // Fin de la boucle des billets
@@ -41,9 +41,6 @@
   </div>
 
   <hr>
-
-
-
 
 <?php $bodyContent = ob_get_clean(); ?>
 

@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // Démarrage de la session
 
 // ROUTEUR
 require('controller/frontend.php');
@@ -10,7 +10,7 @@ try {
 
         // --------- FONCTIONS FRONTEND ---------
 
-        // Fonction qui appelle l'affichage des posts
+        // Action qui appelle l'affichage des posts
         if ($_GET['action'] == 'listPosts') {
             listPosts();
         }
@@ -23,7 +23,7 @@ try {
             }
         }
         
-        // Fonction qui appelle l'ajout de commentaires
+        // Action qui appelle l'ajout de commentaires
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['author']) && !empty($_POST['comment'])) {
@@ -36,20 +36,20 @@ try {
             else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        }
+        } // Signale un article
         elseif ($_GET['action'] == 'report') {
             report($_GET['id'], $_GET['comment_id']);
         }  
 
         // --------- FONCTIONS BACKEND ---------
-
+        
         elseif ($_GET['action'] == 'createPost') {
 			if (!empty($_SESSION)) {
 				displayNewChapter();
 			} else {
 				throw new Exception('Administrateur non identifié');
 			}
-        }
+        } // Affiche la vue d'édition d'un chapitre
         elseif ($_GET['action'] == 'updateChapter') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
 				if (!empty($_SESSION)) {
@@ -58,12 +58,12 @@ try {
 	        } else {
 				throw new Exception('Administrateur non identifié');
 			}
-        }
+        } // Update un article
         elseif ($_GET['action'] == 'submitUpdate') {
 			submitUpdate($_POST['title'], $_POST['content'], $_GET['id']);
         }
         
-        // Fonction qui soumet la création d'un nouvel article
+        // Soumet la création d'un nouvel article
         elseif ($_GET['action'] == 'create') {
             if (!empty($_POST['title']) && !empty($_POST['content'])) {
                 create($_POST['title'], $_POST['content']);
@@ -71,34 +71,34 @@ try {
             else {
                 throw new Exception('Impossible d\'afficher le billet');
             }
-        }
+        }  // Supprimme un article
         elseif ($_GET['action'] == 'delete') {
             delete($_GET['id']);
-        } 
+        } // Affiche la vue login
         elseif ($_GET['action'] == 'displayLogin') {
             displayLoginView();
-        } 
+        } // Lance la connexion
         elseif ($_GET['action'] == 'login') {
             login();
-        }
+        } // Lance la déconnexion
         elseif ($_GET['action'] == 'logout') {
             logOut();
         } 
         
-        // Fonction qui appelle l'affichage des articles en mode Admin
+        // Affichage des articles en mode Admin
         elseif ($_GET['action'] == 'listPostsAdmin') {
             listPostsAdmin();
-        }
+        } // Affichage de la vue modération
         elseif ($_GET['action'] == 'displayReport') {
             if (!empty($_SESSION)) {
                 displayReport();
             } else {
             throw new Exception('Oups, un problème est survenu !');
 			}
-        }  
+        }  // Approuve un commentaire
         elseif ($_GET['action'] == 'approve') {
             approve($_GET['id']);
-        } 
+        } // Supprimme un commentaire
         elseif ($_GET['action'] == 'deleteComments') {
 			deleteComments($_GET['id']);
         } 
