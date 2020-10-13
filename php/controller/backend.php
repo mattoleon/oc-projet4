@@ -50,19 +50,22 @@ function displayLoginView()  // Affiche de la vue login.php
 }
 
 
-function login() // Vérifie la requête de la méthode loginAdmin 
+function login($login,$password) // Vérifie la requête de la méthode loginAdmin
 {
     $loginManager = new Projet4\Blog\Model\LoginManager();
-    $isLogged = $loginManager->loginAdmin($_POST['login'], $_POST['password']);
-
-    if ($isLogged === true) {
-        session_start();
-        $_SESSION['login'] = $_POST['login'];
+    $data = $loginManager->loginAdmin($login);
+    $isPasswordCorrect = password_verify($password, $data["password"]);
+    
+    if ($isPasswordCorrect)
+    {
+        $_SESSION['login'] = $login;
         header('Location:index.php?action=listPostsAdmin&logged=success');
-    } else {
-        header('Location:index.php?action=displayLogin&logged=error');
     }
-
+    else
+    {
+         $_SESSION["error"] = true;
+         header('Location:index.php?action=displayLogin&logged=error');
+    }
 }
 
 function logout() // Fait un session_destroy pour se déconnecter

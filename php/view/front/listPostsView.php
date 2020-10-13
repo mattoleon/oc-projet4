@@ -17,17 +17,13 @@
         }
     ?>
       <?php
-        while ($data = $posts->fetch())
+        while ($data = $posts->fetch()) // Boucle Php qui affiche les articles
          {
       ?>
         <div class="post-preview">
           <a href="index.php?action=post&amp;id=<?= $data['id'] ?>">
-            <h2 class="post-title">
-              <?= htmlspecialchars($data['title']) ?>
-            </h2>
-            <h5 class="post-subtitle">
-              <?= ($data['content']) ?>
-            </h5>
+            <h2 class="post-title"><?= htmlspecialchars($data['title']) ?></h2>
+            <?= ($data['content']) ?>
           </a>
           <p class="post-meta">Publié  par Jean Forteroche
             <em>le <?= htmlspecialchars($data['creation_date_fr'])?></em></p>

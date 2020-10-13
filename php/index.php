@@ -79,7 +79,7 @@ try {
             displayLoginView();
         } // Lance la connexion
         elseif ($_GET['action'] == 'login') {
-            login();
+            login($_POST['login'], $_POST['password']);
         } // Lance la déconnexion
         elseif ($_GET['action'] == 'logout') {
             logOut();

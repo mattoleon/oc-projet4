@@ -32,17 +32,13 @@
     ?>
     <a href="index.php?action=createPost"><input type="submit" value="Nouvel Article" class="btn btn-primary btn-sm" /></a>
     <?php         
-      while ($data = $posts->fetch())
+      while ($data = $posts->fetch()) // Boucle Php qui affiche les articles
         {
     ?>
       <div class="post-preview">
         <a href="index.php?action=post&amp;id=<?= $data['id'] ?>">
-          <h2 class="post-title">
-            <?= htmlspecialchars($data['title']) ?>
-          </h2>
-          <h5 class="post-subtitle">
-            <?= ($data['content']) ?>
-          </h5>
+        <h2 class="post-title"><?= htmlspecialchars($data['title']) ?></h2>
+        <?= ($data['content']) ?>
         </a>
         <a href="index.php?action=delete&amp;id=<?= $data['id'] ?>"><i class="fas fa-trash"></i></a>
         <a href="index.php?action=updateChapter&amp;id=<?= $data['id'] ?>"><i class="fas fa-edit"></i></a>
