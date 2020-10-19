@@ -46,27 +46,12 @@ try {
         elseif ($_GET['action'] == 'listPostsAdmin') {
             listPostsAdmin(); 
         }
-         // Update un article
-        elseif ($_GET['action'] == 'submitUpdate') {
-			submitUpdate($_POST['title'], $_POST['content'], $_GET['id']);
-        }
-        // Soumet la création d'un nouvel article
-        elseif ($_GET['action'] == 'create') {
-            if (!empty($_POST['title']) && !empty($_POST['content'])) {
-                create($_POST['title'], $_POST['content']);
-            }
-            else {
-                throw new Exception('Impossible d\'afficher le billet');
-            }
-        } 
+        // Affiche la vue login
         elseif ($_GET['action'] == 'displayLogin') {
             displayLoginView();
         } // Lance la connexion
         elseif ($_GET['action'] == 'login') {
             login($_POST['login'], $_POST['password']);
-        } // Lance la déconnexion
-        elseif ($_GET['action'] == 'logout') {
-            logOut();
         } 
         
         // Vérifie si la variable de session est bien en place
@@ -74,25 +59,39 @@ try {
             throw new Exception('Administrateur non identifié');
 		} else { // Si la session existe, alors on lance les actions:
             switch($_GET['action']) {
-                case'displayReport':
-                    displayReport(); // Affiche la vue modération
+                case 'displayReport': // Affiche la vue modération
+                    displayReport(); 
                 break;
-                case 'createPost':
-                    displayNewChapter(); // Affiche un nouveau chapitre
+                case 'createPost': // Affiche la vue de l'éditeur pour créer un chapitre
+                    displayNewChapter(); 
                 break;
-                case 'updateChapter':
+                case 'create': // Soumet la création d'un nouveau chapitre
+                    if (!empty($_POST['title']) && !empty($_POST['content'])) {
+                        create($_POST['title'], $_POST['content']);
+                    }
+                    else {
+                        throw new Exception('Impossible d\'afficher le billet');
+                    }
+                break;
+                case 'updateChapter': // Affiche la vue pour éditer un article
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    displayUpdateChapter(); // Affiche la vue pour éditer un article
+                    displayUpdateChapter(); 
                 }
                 break;
-                case 'delete': 
-                    delete($_GET['id']); // Supprime un article
+                case 'submitUpdate': // Soumet la mise à jour d'un article
+                    submitUpdate($_POST['title'], $_POST['content'], $_GET['id']);
                 break;
-                case'approve':
-                    approve($_GET['id']); // Approuve un commentaire
+                case 'delete': // Supprime un article
+                    delete($_GET['id']); 
                 break;
-                case 'deleteComments':
-                    deleteComments($_GET['id']); // Supprime un commentaire
+                case 'approve': // Approuve un commentaire
+                    approve($_GET['id']); 
+                break;
+                case 'deleteComments': // Supprime un commentaire
+                    deleteComments($_GET['id']); 
+                break;
+                case'logout': // Lance la déconnexion
+                    logOut(); 
                 break;
             }
         }
