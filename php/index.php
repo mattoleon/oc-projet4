@@ -42,27 +42,14 @@ try {
         }  
 
         // --------- FONCTIONS BACKEND ---------
-        
-        elseif ($_GET['action'] == 'createPost') {
-			if (!empty($_SESSION)) {
-				displayNewChapter();
-			} else {
-				throw new Exception('Administrateur non identifié');
-			}
-        } // Affiche la vue d'édition d'un chapitre
-        elseif ($_GET['action'] == 'updateChapter') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				if (!empty($_SESSION)) {
-                    displayUpdateChapter();
-				}  
-	        } else {
-				throw new Exception('Administrateur non identifié');
-			}
-        } // Update un article
+        // Affichage de la page d'accueil admin
+        elseif ($_GET['action'] == 'listPostsAdmin') {
+            listPostsAdmin(); 
+        }
+         // Update un article
         elseif ($_GET['action'] == 'submitUpdate') {
 			submitUpdate($_POST['title'], $_POST['content'], $_GET['id']);
         }
-        
         // Soumet la création d'un nouvel article
         elseif ($_GET['action'] == 'create') {
             if (!empty($_POST['title']) && !empty($_POST['content'])) {
@@ -71,10 +58,7 @@ try {
             else {
                 throw new Exception('Impossible d\'afficher le billet');
             }
-        }  // Supprimme un article
-        elseif ($_GET['action'] == 'delete') {
-            delete($_GET['id']);
-        } // Affiche la vue login
+        } 
         elseif ($_GET['action'] == 'displayLogin') {
             displayLoginView();
         } // Lance la connexion
@@ -85,23 +69,33 @@ try {
             logOut();
         } 
         
-        // Affichage des articles en mode Admin
-        elseif ($_GET['action'] == 'listPostsAdmin') {
-            listPostsAdmin();
-        } // Affichage de la vue modération
-        elseif ($_GET['action'] == 'displayReport') {
-            if (!empty($_SESSION)) {
-                displayReport();
-            } else {
-            throw new Exception('Oups, un problème est survenu !');
-			}
-        }  // Approuve un commentaire
-        elseif ($_GET['action'] == 'approve') {
-            approve($_GET['id']);
-        } // Supprimme un commentaire
-        elseif ($_GET['action'] == 'deleteComments') {
-			deleteComments($_GET['id']);
-        } 
+        // Vérifie si la variable de session est bien en place
+        elseif (empty($_SESSION)) {
+            throw new Exception('Administrateur non identifié');
+		} else { // Si la session existe, alors on lance les actions:
+            switch($_GET['action']) {
+                case'displayReport':
+                    displayReport(); // Affiche la vue modération
+                break;
+                case 'createPost':
+                    displayNewChapter(); // Affiche un nouveau chapitre
+                break;
+                case 'updateChapter':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    displayUpdateChapter(); // Affiche la vue pour éditer un article
+                }
+                break;
+                case 'delete': 
+                    delete($_GET['id']); // Supprime un article
+                break;
+                case'approve':
+                    approve($_GET['id']); // Approuve un commentaire
+                break;
+                case 'deleteComments':
+                    deleteComments($_GET['id']); // Supprime un commentaire
+                break;
+            }
+        }
     }
     else {
         listPosts();
